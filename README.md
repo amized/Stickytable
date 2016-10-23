@@ -15,12 +15,11 @@ Some cool things about this plugin:
 
 ### Download
 
-Github [Macdown Website](http://macdown.uranusjr.com "Title")  
+Github [Stickytable.js](https://raw.githubusercontent.com/amized/Stickytable/master/dist/Stickytable.js)  
 
 ### Package managers
 
-Npm: `npm install stickytable --save`
-
+N/A
 
 ## Usage
 
