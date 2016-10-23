@@ -1,16 +1,16 @@
 {
   "name": "Stickytable",
   "version": "1.0.0",
-  "description": "Sticky Table",
+  "description": "Make table headers row and column headers sticky",
   "main": "Gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
     "type": "git",
-    "url": "ssh://git@stash.deependmelbourne.com.au:7999/amf/website.git"
+    "url": "https://github.com/amized/Stickytable.git"
   },
-  "author": "Amiel Zwier",
+  "author": "Amiel Zwier <hi@amielzwier.com> (http://amielzwier.com)",
   "license": "ISC",
   "dependencies": {
     "babel-preset-es2015": "^6.16.0",

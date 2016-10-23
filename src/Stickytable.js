@@ -1,200 +1,185 @@
-
-
 import getScrollbarWidth from "./ScrollbarWidth";
 
 class Stickytable {
 
-	constructor(el, options) {
+  constructor(el, options) {
+    const defaults = {
+      rowSelector: "tr",
+      width: "100%",
+      height: "auto"
+    }
 
+    this.options = Object.assign({}, defaults, options);
 
-		const defaults = {
-			rowSelector: "tr",
-			width: "100%",
-			height: "auto"
-		}
+    this._updateScroll = this._updateScroll.bind(this);
+    this._onWindowResize = this._onWindowResize.bind(this);
 
-		this.options = Object.assign({}, defaults, options);
+    this.rowSelector = this.options.rowSelector;
+    this.scrollBarWidth = getScrollbarWidth();
 
-		this._updateScroll = this._updateScroll.bind(this);
-		this._onWindowResize = this._onWindowResize.bind(this);
+    // Elements
+    this.oldEl = el;
+    this.parent = el.parentNode;
+    this.elMain = el.cloneNode(true);
+    this.elTop = el.cloneNode(true);
+    this.elSide = el.cloneNode(true);
+    this.elCorner =  el.cloneNode(true);
 
-		this.rowSelector = this.options.rowSelector;
-		this.scrollBarWidth = getScrollbarWidth();
+    this.elMainWrapper = document.createElement('div');
+    this.elTopWrapper = document.createElement('div');
+    this.elSideWrapper = document.createElement('div');
+    this.elCornerWrapper = document.createElement('div');
+    this.elWrapper = document.createElement('div');
+    
+    this.elWrapper.appendChild(this.elMainWrapper);
+    this.elWrapper.appendChild(this.elTopWrapper);
+    this.elWrapper.appendChild(this.elSideWrapper);
+    this.elWrapper.appendChild(this.elCornerWrapper);
 
-		// Elements
-		this.oldEl = el;
-		this.parent = el.parentNode;
-		this.elMain = el.cloneNode(true);
-		this.elTop = el.cloneNode(true);
-		this.elSide = el.cloneNode(true);
-		this.elCorner =  el.cloneNode(true);
+    this.elMainWrapper.appendChild(this.elMain);
+    this.elSideWrapper.appendChild(this.elSide);
+    this.elTopWrapper.appendChild(this.elTop);
+    this.elCornerWrapper.appendChild(this.elCorner);
 
-		this.elMainWrapper = document.createElement('div');
-		this.elTopWrapper = document.createElement('div');
-		this.elSideWrapper = document.createElement('div');
-		this.elCornerWrapper = document.createElement('div');
-		this.elWrapper = document.createElement('div');
-		
-		this.elWrapper.appendChild(this.elMainWrapper);
-		this.elWrapper.appendChild(this.elTopWrapper);
-		this.elWrapper.appendChild(this.elSideWrapper);
-		this.elWrapper.appendChild(this.elCornerWrapper);
+    
+    // Events
+    this.elMainWrapper.addEventListener("scroll", this._updateScroll);
+    window.addEventListener("resize", this._onWindowResize);
 
-		this.elMainWrapper.appendChild(this.elMain);
-		this.elSideWrapper.appendChild(this.elSide);
-		this.elTopWrapper.appendChild(this.elTop);
-		this.elCornerWrapper.appendChild(this.elCorner);
+    // Update DOM
+    this.parent.replaceChild(this.elWrapper, el);
 
-		
-		// Events
-		this.elMainWrapper.addEventListener("scroll", this._updateScroll);
-		window.addEventListener("resize", this._onWindowResize);
+    this._updateStyles(this.elMain);
+  }
 
-		// Update DOM
-		this.parent.replaceChild(this.elWrapper, el);
+  _onWindowResize () {
+    this.refresh();
+  }
 
-		this._updateStyles(this.elMain);
+  _updateStyles (refEl) {
+    let cnr = this._getCornerDimensions(refEl); 
 
-	}
+    let cellWidth = cnr.width;
+    let cellHeight = cnr.height;
 
-	_onWindowResize () {
-		this.refresh();
-	}
+    const tableWidth = refEl.offsetWidth;
+    const tableHeight = refEl.offsetHeight;
 
-	_updateStyles (refEl) {
+    ([
+      this.elMain, 
+      this.elTop, 
+      this.elSide, 
+      this.elCorner
+    ]).forEach((el) => {
+      el.style.position = "absolute";
+      el.style.width = tableWidth;
+      el.style.height = tableHeight;
+    });
 
-		let cnr = this._getCornerDimensions(refEl); 
+    // Wrapper 
+    this.elWrapper.style.position = "relative";
+    this.elWrapper.style.overflow = "hidden";
+    this.elWrapper.style.height = this.options.height === "auto" ?
+        refEl.offsetHeight + this.scrollBarWidth
+      :
+        this.options.height;
 
-		let cellWidth = cnr.width;
-		let cellHeight = cnr.height;
+    this.elWrapper.style.width = this.options.width === "auto" ?
+        refEl.offsetWidth + this.scrollBarWidth
+      :
+        this.options.width;
+  
+    // Corner
+    this.elCornerWrapper.style.position = "absolute";
+    this.elCornerWrapper.style.overflow = "hidden";
+    this.elCornerWrapper.style.left = "0";
+    this.elCornerWrapper.style.top = "0";
+    this.elCornerWrapper.style.width = cellWidth + "px";
+    this.elCornerWrapper.style.height = cellHeight + "px";
+    this.elCornerWrapper.style['pointer-events'] = "none";
 
-		const tableWidth = refEl.offsetWidth;
-		const tableHeight = refEl.offsetHeight;
+    // Top
+    this.elTopWrapper.style.position = "absolute";
+    this.elTopWrapper.style.top = "0";
+    this.elTopWrapper.style.left = "0";
+    this.elTopWrapper.style.right = this.scrollBarWidth + "px";
+    this.elTopWrapper.style.overflow = "hidden";
+    this.elTopWrapper.style.height = cellHeight + "px";
+    this.elTopWrapper.style['pointer-events'] = "none";
 
-		([
-			this.elMain, 
-			this.elTop, 
-			this.elSide, 
-			this.elCorner
-		]).forEach((el) => {
-			el.style.position = "absolute";
-			el.style.width = tableWidth;
-			el.style.height = tableHeight;
-		});
+    // Side
+    this.elSideWrapper.style.position = "absolute";
+    this.elSideWrapper.style.top = "0";
+    this.elSideWrapper.style.left = "0";
+    this.elSideWrapper.style.bottom = this.scrollBarWidth + "px";
+    this.elSideWrapper.style.overflow = "hidden";
+    this.elSideWrapper.style.width = cellWidth + "px";
+    this.elSideWrapper.style['pointer-events'] = "none";
 
-		// Wrapper 
-		this.elWrapper.style.position = "relative";
-		this.elWrapper.style.overflow = "hidden";
-		this.elWrapper.style.height = this.options.height === "auto" ?
-				refEl.offsetHeight + this.scrollBarWidth
-			:
-				this.options.height;
+    // Main
+    this.elMainWrapper.style.position = "absolute";
+    this.elMainWrapper.style.left = "0";
+    this.elMainWrapper.style.top = "0";
+    this.elMainWrapper.style.right = "0";
+    this.elMainWrapper.style.bottom = "0";
+    this.elMainWrapper.style.overflow = "scroll";
+    this.elMainWrapper.style['-webkit-overflow-scrolling'] = 'touch';
+  }
 
-		this.elWrapper.style.width = this.options.width === "auto" ?
-				refEl.offsetWidth + this.scrollBarWidth
-			:
-				this.options.width;
-	
+  _updateScroll () {
+    const left = this.elMainWrapper.scrollLeft;
+    const top = this.elMainWrapper.scrollTop;
+    this.elTop.style.transform = "translateX(" + (-left) + "px)";
+    this.elSide.style.transform = "translateY(" + (-top) + "px)";
+  }
 
+  _getCornerDimensions(el) {
+    const row = el.querySelector(this.rowSelector);
+    const cell = row.firstElementChild;
 
-		// Corner
-		this.elCornerWrapper.style.position = "absolute";
-		this.elCornerWrapper.style.overflow = "hidden";
-		this.elCornerWrapper.style.left = "0";
-		this.elCornerWrapper.style.top = "0";
-		this.elCornerWrapper.style.width = cellWidth + "px";
-		this.elCornerWrapper.style.height = cellHeight + "px";
-		this.elCornerWrapper.style['pointer-events'] = "none";
+    let width = cell.offsetWidth;
+    let height = cell.offsetHeight;
 
-		// Top
-		this.elTopWrapper.style.position = "absolute";
-		this.elTopWrapper.style.top = "0";
-		this.elTopWrapper.style.left = "0";
-		this.elTopWrapper.style.right = this.scrollBarWidth + "px";
-		this.elTopWrapper.style.overflow = "hidden";
-		this.elTopWrapper.style.height = cellHeight + "px";
-		this.elTopWrapper.style['pointer-events'] = "none";
+    if (el.tagName === "TABLE" || el.style.display === "table") {
+      const tableStyle = getComputedStyle(el, null);
+      const borderCollapse = tableStyle.getPropertyValue("border-collapse");    
 
-		// Side
-		this.elSideWrapper.style.position = "absolute";
-		this.elSideWrapper.style.top = "0";
-		this.elSideWrapper.style.left = "0";
-		this.elSideWrapper.style.bottom = this.scrollBarWidth + "px";
-		this.elSideWrapper.style.overflow = "hidden";
-		this.elSideWrapper.style.width = cellWidth + "px";
-		this.elSideWrapper.style['pointer-events'] = "none";
+      if (borderCollapse === "collapse") {
+        const style = getComputedStyle(cell, null);
+        const borderLeft = parseInt(style.getPropertyValue("border-left-width"));
+        const borderRight = parseInt(style.getPropertyValue("border-right-width"));
+        const borderTop = parseInt(style.getPropertyValue("border-top-width"));
+        const borderBottom = parseInt(style.getPropertyValue("border-bottom-width"));
+        height = height + (borderTop/2) + (borderBottom/2);
+        width = width + (borderLeft/2) + (borderRight/2);
+      } else {
+        const borderSpacing = parseInt(tableStyle.getPropertyValue("border-spacing"));
+        width = width + borderSpacing;
+        height = height + borderSpacing;
+      }   
+    }
 
-		// Main
-		this.elMainWrapper.style.position = "absolute";
-		this.elMainWrapper.style.left = "0";
-		this.elMainWrapper.style.top = "0";
-		this.elMainWrapper.style.right = "0";
-		this.elMainWrapper.style.bottom = "0";
-		this.elMainWrapper.style.overflow = "scroll";
-		this.elMainWrapper.style['-webkit-overflow-scrolling'] = 'touch';
+    return { width, height };   
+  }
 
+  destroy() {
+    this.elMainWrapper.removeEventListener("scroll", this._updateScroll);
+    this.parent.replaceChild(this.oldEl, this.elWrapper);
+    this.parent = null;
+    this.elMain = null;
+    this.elTop = null;
+    this.elSide = null;
+    this.elCorner = null;
+    this.elWrapper = null;
+    this.elMainWrapper = null;
+    this.elSideWrapper = null;
+    this.elTopWrapper = null;
+    this.elCornerWrapper = null;
+  }
 
-		
-	}
-
-	_updateScroll () {
-		const left = this.elMainWrapper.scrollLeft;
-		const top = this.elMainWrapper.scrollTop;
-		this.elTop.style.transform = "translateX(" + (-left) + "px)";
-		this.elSide.style.transform = "translateY(" + (-top) + "px)";
-	}
-
-	_getCornerDimensions(el) {
-
-		console.log("getting cnr");
-		const row = el.querySelector(this.rowSelector);
-		const cell = row.firstElementChild;
-
-		let width = cell.offsetWidth;
-		let height = cell.offsetHeight;
-
-		if (el.tagName === "TABLE" || el.style.display === "table") {
-			const tableStyle = getComputedStyle(el, null);
-			const borderCollapse = tableStyle.getPropertyValue("border-collapse");			
-			if (borderCollapse === "collapse") {
-				const style = getComputedStyle(cell, null);
-				const borderLeft = parseInt(style.getPropertyValue("border-left-width"));
-				const borderRight = parseInt(style.getPropertyValue("border-right-width"));
-				const borderTop = parseInt(style.getPropertyValue("border-top-width"));
-				const borderBottom = parseInt(style.getPropertyValue("border-bottom-width"));
-				height = height + (borderTop/2) + (borderBottom/2);
-				width = width + (borderLeft/2) + (borderRight/2);
-			}
-
-			else {
-				const borderSpacing = parseInt(tableStyle.getPropertyValue("border-spacing"));
-				width = width + borderSpacing;
-				height = height + borderSpacing;
-			}		
-		}
-
-		return { width, height };		
-	}
-
-	destroy() {
-		this.elMainWrapper.removeEventListener("scroll", this._updateScroll);
-		this.parent.replaceChild(this.oldEl, this.elWrapper);
-		this.parent = null;
-		this.elMain = null;
-		this.elTop = null;
-		this.elSide = null;
-		this.elCorner = null;
-		this.elWrapper = null;
-		this.elMainWrapper = null;
-		this.elSideWrapper = null;
-		this.elTopWrapper = null;
-		this.elCornerWrapper = null;
-	}
-
-
-	refresh() {
-		this._updateStyles(this.elMain);
-	}
+  refresh() {
+    this._updateStyles(this.elMain);
+  }
 }
 
 module.exports = Stickytable;

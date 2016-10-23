@@ -45,186 +45,184 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
 var Stickytable = function () {
-	function Stickytable(el, options) {
-		_classCallCheck(this, Stickytable);
+  function Stickytable(el, options) {
+    _classCallCheck(this, Stickytable);
 
-		var defaults = {
-			rowSelector: "tr",
-			width: "100%",
-			height: "auto"
-		};
+    var defaults = {
+      rowSelector: "tr",
+      width: "100%",
+      height: "auto"
+    };
 
-		this.options = Object.assign({}, defaults, options);
+    this.options = Object.assign({}, defaults, options);
 
-		this._updateScroll = this._updateScroll.bind(this);
-		this._onWindowResize = this._onWindowResize.bind(this);
+    this._updateScroll = this._updateScroll.bind(this);
+    this._onWindowResize = this._onWindowResize.bind(this);
 
-		this.rowSelector = this.options.rowSelector;
-		this.scrollBarWidth = (0, _ScrollbarWidth2.default)();
+    this.rowSelector = this.options.rowSelector;
+    this.scrollBarWidth = (0, _ScrollbarWidth2.default)();
 
-		// Elements
-		this.oldEl = el;
-		this.parent = el.parentNode;
-		this.elMain = el.cloneNode(true);
-		this.elTop = el.cloneNode(true);
-		this.elSide = el.cloneNode(true);
-		this.elCorner = el.cloneNode(true);
+    // Elements
+    this.oldEl = el;
+    this.parent = el.parentNode;
+    this.elMain = el.cloneNode(true);
+    this.elTop = el.cloneNode(true);
+    this.elSide = el.cloneNode(true);
+    this.elCorner = el.cloneNode(true);
 
-		this.elMainWrapper = document.createElement('div');
-		this.elTopWrapper = document.createElement('div');
-		this.elSideWrapper = document.createElement('div');
-		this.elCornerWrapper = document.createElement('div');
-		this.elWrapper = document.createElement('div');
+    this.elMainWrapper = document.createElement('div');
+    this.elTopWrapper = document.createElement('div');
+    this.elSideWrapper = document.createElement('div');
+    this.elCornerWrapper = document.createElement('div');
+    this.elWrapper = document.createElement('div');
 
-		this.elWrapper.appendChild(this.elMainWrapper);
-		this.elWrapper.appendChild(this.elTopWrapper);
-		this.elWrapper.appendChild(this.elSideWrapper);
-		this.elWrapper.appendChild(this.elCornerWrapper);
+    this.elWrapper.appendChild(this.elMainWrapper);
+    this.elWrapper.appendChild(this.elTopWrapper);
+    this.elWrapper.appendChild(this.elSideWrapper);
+    this.elWrapper.appendChild(this.elCornerWrapper);
 
-		this.elMainWrapper.appendChild(this.elMain);
-		this.elSideWrapper.appendChild(this.elSide);
-		this.elTopWrapper.appendChild(this.elTop);
-		this.elCornerWrapper.appendChild(this.elCorner);
+    this.elMainWrapper.appendChild(this.elMain);
+    this.elSideWrapper.appendChild(this.elSide);
+    this.elTopWrapper.appendChild(this.elTop);
+    this.elCornerWrapper.appendChild(this.elCorner);
 
-		// Events
-		this.elMainWrapper.addEventListener("scroll", this._updateScroll);
-		window.addEventListener("resize", this._onWindowResize);
+    // Events
+    this.elMainWrapper.addEventListener("scroll", this._updateScroll);
+    window.addEventListener("resize", this._onWindowResize);
 
-		// Update DOM
-		this.parent.replaceChild(this.elWrapper, el);
+    // Update DOM
+    this.parent.replaceChild(this.elWrapper, el);
 
-		this._updateStyles(this.elMain);
-	}
+    this._updateStyles(this.elMain);
+  }
 
-	_createClass(Stickytable, [{
-		key: "_onWindowResize",
-		value: function _onWindowResize() {
-			this.refresh();
-		}
-	}, {
-		key: "_updateStyles",
-		value: function _updateStyles(refEl) {
+  _createClass(Stickytable, [{
+    key: "_onWindowResize",
+    value: function _onWindowResize() {
+      this.refresh();
+    }
+  }, {
+    key: "_updateStyles",
+    value: function _updateStyles(refEl) {
+      var cnr = this._getCornerDimensions(refEl);
 
-			var cnr = this._getCornerDimensions(refEl);
+      var cellWidth = cnr.width;
+      var cellHeight = cnr.height;
 
-			var cellWidth = cnr.width;
-			var cellHeight = cnr.height;
+      var tableWidth = refEl.offsetWidth;
+      var tableHeight = refEl.offsetHeight;
 
-			var tableWidth = refEl.offsetWidth;
-			var tableHeight = refEl.offsetHeight;
+      [this.elMain, this.elTop, this.elSide, this.elCorner].forEach(function (el) {
+        el.style.position = "absolute";
+        el.style.width = tableWidth;
+        el.style.height = tableHeight;
+      });
 
-			[this.elMain, this.elTop, this.elSide, this.elCorner].forEach(function (el) {
-				el.style.position = "absolute";
-				el.style.width = tableWidth;
-				el.style.height = tableHeight;
-			});
+      // Wrapper 
+      this.elWrapper.style.position = "relative";
+      this.elWrapper.style.overflow = "hidden";
+      this.elWrapper.style.height = this.options.height === "auto" ? refEl.offsetHeight + this.scrollBarWidth : this.options.height;
 
-			// Wrapper 
-			this.elWrapper.style.position = "relative";
-			this.elWrapper.style.overflow = "hidden";
-			this.elWrapper.style.height = this.options.height === "auto" ? refEl.offsetHeight + this.scrollBarWidth : this.options.height;
+      this.elWrapper.style.width = this.options.width === "auto" ? refEl.offsetWidth + this.scrollBarWidth : this.options.width;
 
-			this.elWrapper.style.width = this.options.width === "auto" ? refEl.offsetWidth + this.scrollBarWidth : this.options.width;
+      // Corner
+      this.elCornerWrapper.style.position = "absolute";
+      this.elCornerWrapper.style.overflow = "hidden";
+      this.elCornerWrapper.style.left = "0";
+      this.elCornerWrapper.style.top = "0";
+      this.elCornerWrapper.style.width = cellWidth + "px";
+      this.elCornerWrapper.style.height = cellHeight + "px";
+      this.elCornerWrapper.style['pointer-events'] = "none";
 
-			// Corner
-			this.elCornerWrapper.style.position = "absolute";
-			this.elCornerWrapper.style.overflow = "hidden";
-			this.elCornerWrapper.style.left = "0";
-			this.elCornerWrapper.style.top = "0";
-			this.elCornerWrapper.style.width = cellWidth + "px";
-			this.elCornerWrapper.style.height = cellHeight + "px";
-			this.elCornerWrapper.style['pointer-events'] = "none";
+      // Top
+      this.elTopWrapper.style.position = "absolute";
+      this.elTopWrapper.style.top = "0";
+      this.elTopWrapper.style.left = "0";
+      this.elTopWrapper.style.right = this.scrollBarWidth + "px";
+      this.elTopWrapper.style.overflow = "hidden";
+      this.elTopWrapper.style.height = cellHeight + "px";
+      this.elTopWrapper.style['pointer-events'] = "none";
 
-			// Top
-			this.elTopWrapper.style.position = "absolute";
-			this.elTopWrapper.style.top = "0";
-			this.elTopWrapper.style.left = "0";
-			this.elTopWrapper.style.right = this.scrollBarWidth + "px";
-			this.elTopWrapper.style.overflow = "hidden";
-			this.elTopWrapper.style.height = cellHeight + "px";
-			this.elTopWrapper.style['pointer-events'] = "none";
+      // Side
+      this.elSideWrapper.style.position = "absolute";
+      this.elSideWrapper.style.top = "0";
+      this.elSideWrapper.style.left = "0";
+      this.elSideWrapper.style.bottom = this.scrollBarWidth + "px";
+      this.elSideWrapper.style.overflow = "hidden";
+      this.elSideWrapper.style.width = cellWidth + "px";
+      this.elSideWrapper.style['pointer-events'] = "none";
 
-			// Side
-			this.elSideWrapper.style.position = "absolute";
-			this.elSideWrapper.style.top = "0";
-			this.elSideWrapper.style.left = "0";
-			this.elSideWrapper.style.bottom = this.scrollBarWidth + "px";
-			this.elSideWrapper.style.overflow = "hidden";
-			this.elSideWrapper.style.width = cellWidth + "px";
-			this.elSideWrapper.style['pointer-events'] = "none";
+      // Main
+      this.elMainWrapper.style.position = "absolute";
+      this.elMainWrapper.style.left = "0";
+      this.elMainWrapper.style.top = "0";
+      this.elMainWrapper.style.right = "0";
+      this.elMainWrapper.style.bottom = "0";
+      this.elMainWrapper.style.overflow = "scroll";
+      this.elMainWrapper.style['-webkit-overflow-scrolling'] = 'touch';
+    }
+  }, {
+    key: "_updateScroll",
+    value: function _updateScroll() {
+      var left = this.elMainWrapper.scrollLeft;
+      var top = this.elMainWrapper.scrollTop;
+      this.elTop.style.transform = "translateX(" + -left + "px)";
+      this.elSide.style.transform = "translateY(" + -top + "px)";
+    }
+  }, {
+    key: "_getCornerDimensions",
+    value: function _getCornerDimensions(el) {
+      var row = el.querySelector(this.rowSelector);
+      var cell = row.firstElementChild;
 
-			// Main
-			this.elMainWrapper.style.position = "absolute";
-			this.elMainWrapper.style.left = "0";
-			this.elMainWrapper.style.top = "0";
-			this.elMainWrapper.style.right = "0";
-			this.elMainWrapper.style.bottom = "0";
-			this.elMainWrapper.style.overflow = "scroll";
-			this.elMainWrapper.style['-webkit-overflow-scrolling'] = 'touch';
-		}
-	}, {
-		key: "_updateScroll",
-		value: function _updateScroll() {
-			var left = this.elMainWrapper.scrollLeft;
-			var top = this.elMainWrapper.scrollTop;
-			this.elTop.style.transform = "translateX(" + -left + "px)";
-			this.elSide.style.transform = "translateY(" + -top + "px)";
-		}
-	}, {
-		key: "_getCornerDimensions",
-		value: function _getCornerDimensions(el) {
+      var width = cell.offsetWidth;
+      var height = cell.offsetHeight;
 
-			console.log("getting cnr");
-			var row = el.querySelector(this.rowSelector);
-			var cell = row.firstElementChild;
+      if (el.tagName === "TABLE" || el.style.display === "table") {
+        var tableStyle = getComputedStyle(el, null);
+        var borderCollapse = tableStyle.getPropertyValue("border-collapse");
 
-			var width = cell.offsetWidth;
-			var height = cell.offsetHeight;
+        if (borderCollapse === "collapse") {
+          var style = getComputedStyle(cell, null);
+          var borderLeft = parseInt(style.getPropertyValue("border-left-width"));
+          var borderRight = parseInt(style.getPropertyValue("border-right-width"));
+          var borderTop = parseInt(style.getPropertyValue("border-top-width"));
+          var borderBottom = parseInt(style.getPropertyValue("border-bottom-width"));
+          height = height + borderTop / 2 + borderBottom / 2;
+          width = width + borderLeft / 2 + borderRight / 2;
+        } else {
+          var borderSpacing = parseInt(tableStyle.getPropertyValue("border-spacing"));
+          width = width + borderSpacing;
+          height = height + borderSpacing;
+        }
+      }
 
-			if (el.tagName === "TABLE" || el.style.display === "table") {
-				var tableStyle = getComputedStyle(el, null);
-				var borderCollapse = tableStyle.getPropertyValue("border-collapse");
-				if (borderCollapse === "collapse") {
-					var style = getComputedStyle(cell, null);
-					var borderLeft = parseInt(style.getPropertyValue("border-left-width"));
-					var borderRight = parseInt(style.getPropertyValue("border-right-width"));
-					var borderTop = parseInt(style.getPropertyValue("border-top-width"));
-					var borderBottom = parseInt(style.getPropertyValue("border-bottom-width"));
-					height = height + borderTop / 2 + borderBottom / 2;
-					width = width + borderLeft / 2 + borderRight / 2;
-				} else {
-					var borderSpacing = parseInt(tableStyle.getPropertyValue("border-spacing"));
-					width = width + borderSpacing;
-					height = height + borderSpacing;
-				}
-			}
+      return { width: width, height: height };
+    }
+  }, {
+    key: "destroy",
+    value: function destroy() {
+      this.elMainWrapper.removeEventListener("scroll", this._updateScroll);
+      this.parent.replaceChild(this.oldEl, this.elWrapper);
+      this.parent = null;
+      this.elMain = null;
+      this.elTop = null;
+      this.elSide = null;
+      this.elCorner = null;
+      this.elWrapper = null;
+      this.elMainWrapper = null;
+      this.elSideWrapper = null;
+      this.elTopWrapper = null;
+      this.elCornerWrapper = null;
+    }
+  }, {
+    key: "refresh",
+    value: function refresh() {
+      this._updateStyles(this.elMain);
+    }
+  }]);
 
-			return { width: width, height: height };
-		}
-	}, {
-		key: "destroy",
-		value: function destroy() {
-			this.elMainWrapper.removeEventListener("scroll", this._updateScroll);
-			this.parent.replaceChild(this.oldEl, this.elWrapper);
-			this.parent = null;
-			this.elMain = null;
-			this.elTop = null;
-			this.elSide = null;
-			this.elCorner = null;
-			this.elWrapper = null;
-			this.elMainWrapper = null;
-			this.elSideWrapper = null;
-			this.elTopWrapper = null;
-			this.elCornerWrapper = null;
-		}
-	}, {
-		key: "refresh",
-		value: function refresh() {
-			this._updateStyles(this.elMain);
-		}
-	}]);
-
-	return Stickytable;
+  return Stickytable;
 }();
 
 module.exports = Stickytable;
