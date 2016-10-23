@@ -1,0 +1,146 @@
+<html>
+	<head>
+		<script src="../dist/Stickytable.js"></script>
+		<style>
+
+			table {
+			    //border-spacing: 120px 50px;
+			    //border-spacing: 100px;
+			    width: 2000px;
+			    border-collapse: collapse;
+			}
+
+			td {
+				//padding: 30px;
+				//border: 10px solid #333;
+				//border-left: 2px solid #333;
+				background: #FFEEFF;
+				border: 1px solid #000;
+			}
+
+			.wrapper {
+				//width: 500px;
+				//height: 500px;
+				position: relative;
+			}
+
+
+			.tablerow {
+				display: flex;
+			}
+
+			.tablerow > div {
+				border-top: 2px solid #AAA;
+				border-left: 2px solid #AAA;
+				border-right: 10px solid #AAA;
+				padding: 10px;
+				width: 400px;
+			}
+
+			.tablerow > div:first-child {
+				background: red;
+			} 
+
+		</style>
+	</head>
+	<body>
+		<div class="wrapper">
+			<table cellpadding="10" cellspacing="10" >
+				<tr>
+					<td>Heading cell 10  0</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+				</tr>	
+				<tr>
+					<td>Heading 2</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+				</tr>	
+				<tr>
+					<td>Heading 3</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+				</tr>	
+				<tr>
+					<td>Heading 3</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+				</tr>				<tr>
+					<td>Heading 3</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+				</tr>
+
+			</table>
+		</div>
+
+		<div class="table">
+			<div class="tablerow">
+				<div>Hello</div>
+				<div>Hello</div>
+				<div>Hello</div>
+			</div>
+			<div class="tablerow">
+				<div>Hello</div>
+				<div>Hello</div>
+				<div>Hello</div>
+			</div>
+			<div class="tablerow">
+				<div>Hello</div>
+				<div>Hello</div>
+				<div>Hello</div>
+			</div>						
+		</div>
+
+		<script>
+			var el = document.querySelector("table");
+			var stickytable = new Stickytable(el, {
+				width: "600px",
+				height: "200px"
+			});
+
+			var el = document.querySelector(".table");
+			var stickytable = new Stickytable(el, {
+				rowSelector: ".tablerow",
+				width: "600px",
+				height: "600px"
+			});
+		
+		</script>
+	</body>
+</html>
