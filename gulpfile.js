@@ -5,6 +5,10 @@ var buffer = require('vinyl-buffer');
 var browserify = require('browserify');
 var watchify = require('watchify');
 var babel = require('babelify');
+var uglify = require('gulp-uglify');
+var rename = require('gulp-rename');
+
+var DEST = 'dist/';
 
 function compile(watch) {
   var bundler = watchify(browserify('./src/Stickytable.js', { debug: true, standalone: "Stickytable" }).transform(babel, {presets: ["es2015"]}));
@@ -14,9 +18,10 @@ function compile(watch) {
       .on('error', function(err) { console.error(err); this.emit('end'); })
       .pipe(source('Stickytable.js'))
       .pipe(buffer())
-      .pipe(sourcemaps.init({ loadMaps: true }))
-      .pipe(sourcemaps.write('./'))
-      .pipe(gulp.dest('./dist'));
+      .pipe(gulp.dest(DEST))
+      .pipe(uglify())
+      .pipe(rename({ extname: '.min.js' }))
+      .pipe(gulp.dest(DEST));
   }
 
   if (watch) {

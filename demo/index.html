@@ -1,51 +1,21 @@
 <html>
 	<head>
 		<script src="../dist/Stickytable.js"></script>
-		<style>
-
-			table {
-			    //border-spacing: 120px 50px;
-			    //border-spacing: 100px;
-			    width: 2000px;
-			    //border-collapse: collapse;
-			}
-
-			td {
-				//padding: 30px;
-				//border: 10px solid #333;
-				//border-left: 2px solid #333;
-				background: #FFEEFF;
-				border: 1px solid #000;
-			}
-
-			.wrapper {
-				//width: 500px;
-				//height: 500px;
-				position: relative;
-			}
-
-
-			.tablerow {
-				display: flex;
-			}
-
-			.tablerow > div {
-				border-top: 2px solid #AAA;
-				border-left: 2px solid #AAA;
-				border-right: 10px solid #AAA;
-				padding: 10px;
-				width: 400px;
-			}
-
-			.tablerow > div:first-child {
-				background: red;
-			} 
-
-		</style>
+		<link rel="stylesheet" type="text/css" href="demo.css">
+		<link href="https://fonts.googleapis.com/css?family=Work+Sans:300,400,500,600,700" rel="stylesheet">
+		<link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
 	</head>
 	<body>
+
+		<div class="header">
+			<div class="header-inner">
+				<h1>Stickytable</h1>
+				<p class="header-description">Stickytable is a javascript plugin that makes your table headers sticky, allowing users to scroll both horizontally and vertically through big sets of table data.</p>
+				
+
+
 		<div class="wrapper">
-			<table cellpadding="10" cellspacing="30" >
+			<table cellpadding="10" cellspacing="40" >
 				<tr>
 					<td>Heading cell 10  0</td>
 					<td>Heading 1</td>
@@ -105,42 +75,117 @@
 					<td>Heading 1</td>
 					<td>Heading 1</td>
 				</tr>
-
+				</tr>				<tr>
+					<td>Heading 3</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+				</tr>
+				</tr>				<tr>
+					<td>Heading 3</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+				</tr>
+				</tr>				<tr>
+					<td>Heading 3</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+					<td>Heading 1</td>
+				</tr>								
 			</table>
 		</div>
 
-		<div class="table">
-			<div class="tablerow">
-				<div>Hello</div>
-				<div>Hello</div>
-				<div>Hello</div>
+				<h2>Features</h2>
+				<ul>
+					<li>Have any number of rows and columns in your table</li>
+					<li>Use your own CSS to style your tables</li>
+					<li>It works on tables made of other elements, like divs</li>
+					<li>It makes both the row and column headers sticky</li>
+					<li>Completely responsive and plays nice with touch devices</li>
+				</ul>
+
+				<div class="header-links">
+					<a download href="https://raw.githubusercontent.com/amized/Stickytable/master/dist/Stickytable.js">
+						<i class="fa fa-download"></i>
+					Download
+					</a> 
+					<a href="https://github.com/amized/Stickytable">
+						<i class="fa fa-github"></i>
+						View on GitHub
+					</a>
+					<a href="https://github.com/amized/Stickytable">
+						<i class="fa fa-book"></i>
+						Docs
+					</a>
+				</div>
 			</div>
-			<div class="tablerow">
-				<div>Hello</div>
-				<div>Hello</div>
-				<div>Hello</div>
-			</div>
-			<div class="tablerow">
-				<div>Hello</div>
-				<div>Hello</div>
-				<div>Hello</div>
-			</div>						
 		</div>
+		
+
+		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 		<script>
-			var el = document.querySelector("table");
-			var stickytable = new Stickytable(el, {
-				width: "600px",
-				height: "100px"
-			});
+			window.onload = function() {
+				console.log("lodeee");
+			}
 
+			//setTimeout(()=>{
+				var el = document.querySelector("table");
+				var stickytable = new Stickytable(el, {
+					width: "100%",
+					height: "300px"
+				});
+
+			//}, 2000);
+			/*
+			setTimeout(()=>{
+				stickytable.destroy();
+				stickytable = new Stickytable(el, {
+					width: "100%",
+					height: "auto"
+				});
+
+				stickytable.scrollX(40);
+
+			}, 2000);
+			*/
+			/*
+			var el = document.querySelector("td");
+			console.log(el.offsetWidth);
+			
+			setTimeout(()=>{
+				console.log(el.offsetWidth);
+			}, 500);
+
+*/
+
+/*
 			var el = document.querySelector(".table");
 			var stickytable = new Stickytable(el, {
 				rowSelector: ".tablerow",
 				width: "600px",
 				height: "600px"
 			});
-		
+*/		
 		</script>
 	</body>
 </html>

@@ -1,0 +1,192 @@
+
+/* http://meyerweb.com/eric/tools/css/reset/ 
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed, 
+figure, figcaption, footer, header, hgroup, 
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section {
+	display: block;
+}
+body {
+	line-height: 1;
+}
+ol, ul {
+	list-style: none;
+}
+blockquote, q {
+	quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+	content: '';
+	content: none;
+}
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+
+
+body {
+	font-family: 'Work Sans', sans-serif;
+	font-size: 18px;
+	font-weight: 300;
+	line-height: 1.5;
+	background: #31859e;
+}
+
+h1, h2 {
+	letter-spacing: .03em;
+	font-weight: 700;
+}
+
+h1 {
+
+	font-family: 'Work Sans', sans-serif;
+	font-size: 60px;
+	letter-spacing: .03em;
+}
+
+
+h2 {
+	padding-bottom: 5px;
+	border-bottom: 1px solid rgba(255,255,255,0.2);
+	font-weight: 600;
+	font-size: 30px;
+}
+
+ul {
+	padding: 20px 0px;
+	text-align: left;
+	margin-left: 30px;
+}
+
+li {
+	padding: 10px 0px;
+	list-style-type: disc;
+}
+
+.header {
+	padding: 100px 0px;
+	color: #FFF;
+	background: #31859e;
+	text-align: center;
+
+}
+
+.header-description {
+	font-size: 18px;
+	margin: 50px 0px;
+}
+
+.header-inner {
+	max-width: 700px;
+	margin: 0px auto;
+	padding: 0px 20px;
+}
+
+.header-links {
+	display: flex;
+	justify-content: center;
+	margin: 40px 0px;
+	padding: 40px 0px;
+	border-top: 1px solid rgba(255,255,255,0.2);
+}
+
+.header-links > * {
+	margin: 0px 0px;
+	display: block;
+	color: #FFF;
+	text-decoration: none;
+	text-align: center;
+	width: 160px;
+}
+
+.header-links i {
+	display: block;
+    font-size: 42px;
+    margin-bottom: 10px;
+    opacity: 0.8;	
+}
+
+table {
+    //border-spacing: 120px 50px;
+    //border-spacing: 100px;
+    width: 1000px;
+    border-collapse: collapse;
+}
+
+td {
+	padding: 10px;
+	vertical-align: middle;
+	//padding: 30px;
+	//border: 10px solid #333;
+	//border-left: 2px solid #333;
+	cell-spacing: 15px;
+	background: #FFF;
+	border: 1px solid #000;
+}
+
+td:first-child {
+	background: #333;
+	color: #FFF;
+	//min-width: 150px;
+	//width: 50px;
+	height: 50px;
+	font-weight: 500;
+}
+
+tr:first-child td {
+	font-weight: 500;
+	text-align: center;
+	text-transform: uppercase;
+	background: #FFEEFF;
+	color: #000;
+}
+
+.wrapper {
+	//width: 500px;
+	//height: 500px;
+	position: relative;
+	margin-bottom: 40px;
+}
+
+
+.tablerow {
+	display: flex;
+}
+
+.tablerow > div {
+	border-top: 2px solid #AAA;
+	border-left: 2px solid #AAA;
+	border-right: 10px solid #AAA;
+	padding: 10px;
+	width: 400px;
+}
+
+.tablerow > div:first-child {
+	background: red;
+} 

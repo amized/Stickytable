@@ -40,16 +40,20 @@ class Stickytable {
     this.elSideWrapper.appendChild(this.elSide);
     this.elTopWrapper.appendChild(this.elTop);
     this.elCornerWrapper.appendChild(this.elCorner);
-
     
     // Events
     this.elMainWrapper.addEventListener("scroll", this._updateScroll);
     window.addEventListener("resize", this._onWindowResize);
 
-    // Update DOM
+    // Update the styles and modify the DOM
+    this._updateStyles(el);
     this.parent.replaceChild(this.elWrapper, el);
 
-    this._updateStyles(this.elMain);
+    // If the window is not loaded, update styles again as the table properties
+    // may have changed
+    window.addEventListener("load", () => {
+      this._updateStyles(this.elMain);
+    });
   }
 
   _onWindowResize () {
@@ -57,28 +61,44 @@ class Stickytable {
   }
 
   _updateStyles (refEl) {
-    let cnr = this._getCornerDimensions(refEl); 
 
-    let cellWidth = cnr.width;
-    let cellHeight = cnr.height;
-
+    const cnr = this._getCornerDimensions(refEl); 
+    const cellWidth = cnr.width;
+    const cellHeight = cnr.height;
     const tableWidth = refEl.offsetWidth;
     const tableHeight = refEl.offsetHeight;
 
-    ([
+    const tables = [
       this.elMain, 
       this.elTop, 
       this.elSide, 
       this.elCorner
-    ]).forEach((el) => {
+    ];
+
+    const wrappers = [
+      this.elCornerWrapper,
+      this.elTopWrapper,
+      this.elSideWrapper,
+      this.elMainWrapper
+    ]
+
+    wrappers.forEach((el) => {
       el.style.position = "absolute";
+      el.style.top = 0;
+      el.style.left = 0;
+    });
+
+    tables.forEach((el) => {
+      el.style.position = "absolute";
+      el.style.top = 0;
+      el.style.left = 0;
       el.style.width = tableWidth;
       el.style.height = tableHeight;
     });
 
-    // Wrapper 
+    // Wrapper
     this.elWrapper.style.position = "relative";
-    this.elWrapper.style.overflow = "hidden";
+    this.elWrapper.style.overflow = "hidden";    
     this.elWrapper.style.height = this.options.height === "auto" ?
         refEl.offsetHeight + this.scrollBarWidth
       :
@@ -90,36 +110,24 @@ class Stickytable {
         this.options.width;
   
     // Corner
-    this.elCornerWrapper.style.position = "absolute";
     this.elCornerWrapper.style.overflow = "hidden";
-    this.elCornerWrapper.style.left = "0";
-    this.elCornerWrapper.style.top = "0";
     this.elCornerWrapper.style.width = cellWidth + "px";
     this.elCornerWrapper.style.height = cellHeight + "px";
     this.elCornerWrapper.style['pointer-events'] = "none";
 
     // Top
-    this.elTopWrapper.style.position = "absolute";
-    this.elTopWrapper.style.top = "0";
-    this.elTopWrapper.style.left = "0";
     this.elTopWrapper.style.right = this.scrollBarWidth + "px";
     this.elTopWrapper.style.overflow = "hidden";
     this.elTopWrapper.style.height = cellHeight + "px";
     this.elTopWrapper.style['pointer-events'] = "none";
 
     // Side
-    this.elSideWrapper.style.position = "absolute";
-    this.elSideWrapper.style.top = "0";
-    this.elSideWrapper.style.left = "0";
     this.elSideWrapper.style.bottom = this.scrollBarWidth + "px";
     this.elSideWrapper.style.overflow = "hidden";
     this.elSideWrapper.style.width = cellWidth + "px";
     this.elSideWrapper.style['pointer-events'] = "none";
 
     // Main
-    this.elMainWrapper.style.position = "absolute";
-    this.elMainWrapper.style.left = "0";
-    this.elMainWrapper.style.top = "0";
     this.elMainWrapper.style.right = "0";
     this.elMainWrapper.style.bottom = "0";
     this.elMainWrapper.style.overflow = "scroll";
@@ -160,6 +168,14 @@ class Stickytable {
     }
 
     return { width, height };   
+  }
+
+  scrollX(num) {
+    this.elMainWrapper.scrollLeft = num;
+  }
+
+  scrollY(num) {
+    this.elMainWrapper.scrollTop = num;
   }
 
   destroy() {
