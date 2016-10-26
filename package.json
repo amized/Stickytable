@@ -1,8 +1,8 @@
 {
-  "name": "Stickytable",
+  "name": "stickytable",
   "version": "1.0.0",
   "description": "Make table row headers and column headers sticky",
-  "main": "Gulpfile.js",
+  "main": "lib/Stickytable.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -11,20 +11,20 @@
     "url": "https://github.com/amized/Stickytable.git"
   },
   "author": "Amiel Zwier <hi@amielzwier.com> (http://amielzwier.com)",
-  "license": "ISC",
-  "dependencies": {
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {
     "babel-preset-es2015": "^6.16.0",
     "babelify": "^7.3.0",
     "browserify": "^13.1.0",
     "gulp": "^3.9.1",
+    "gulp-babel": "^6.1.2",
+    "gulp-banner": "^0.1.3",
     "gulp-rename": "^1.2.2",
     "gulp-sourcemaps": "^2.1.1",
     "gulp-uglify": "^2.0.0",
     "vinyl-buffer": "^1.0.0",
     "vinyl-source-stream": "^1.1.0",
     "watchify": "^3.7.0"
-  },
-  "devDependencies": {
-    "gulp-banner": "^0.1.3"
   }
 }

@@ -19,18 +19,18 @@ Github [Stickytable.js](https://raw.githubusercontent.com/amized/Stickytable/mas
 
 ### Package managers
 
-N/A
+**NPM:** `npm install stickytable`
 
 ## Usage
 
-Make a table.
+Make a table
 
 	<table>
 		...	
 	</table>
 
 	
-Style it with your css - Widths, heights, colors, borders...
+Style it
 
 	...
 	
@@ -54,7 +54,7 @@ or commonjs
 
 	var Stickytable = require("stickytable");	
 	
-Instantiate a Sticky table object by passing the table element and options.
+Instantiate a Sticky table object by passing the table element and options
 
 	var el = document.querySelector("table");
 	var stickytable = new Stickytable(el, {
@@ -66,7 +66,7 @@ Instantiate a Sticky table object by passing the table element and options.
 
 Option        | Type          | Default      | Description
 ------------- | ------------- | ------------ | -----------             
-width | string | '100%' | Sets the the css width property of the scrollable container. Set to 'auto' to allow the container height to match the height of the table.
+width | string | '100%' | Sets the the css width property of the scrollable container. Set to 'auto' to allow the container width to match the width of the table.
 height | string | 'auto' | Sets the the css height property of the scrollable container. Set to auto to allow the container height to match the height of the table.
 rowSelector | string | 'tr' | A selector to tell Stickytable which elements are the rows in your table. Change this value if your table is made of elements other than table/tr/td, like divs.
 
@@ -77,14 +77,14 @@ rowSelector | string | 'tr' | A selector to tell Stickytable which elements are 
 Instantiates Sticky table.
 
 
-####Arguments:
+###Arguments:
  
 `element`	DOM element for the table
 
 `options` Object that specifies options
 
-####Returns:
-New Stickytable instance
+###Returns:
+New `Stickytable` instance
 
 --
 
@@ -92,19 +92,20 @@ New Stickytable instance
 
 Destroys the sticky table and restores the original table into the DOM.
 
-####Arguments:
+###Arguments:
 None
-####Returns:
-Undefined
+###Returns:
+`Undefined`
 
 --
 
 	stickytable.refresh()
 
-Recalculates the sticky element dimensions and redraws the sticky table. 
-
-**NOTE** Stickytable is responsive and will automatically redraw upon window resize
-####Arguments:
+Recalculates the sticky element dimensions and redraws the sticky table.
+###Arguments:
 None
-####Returns:
-Undefined
+###Returns:
+`Undefined`
+
+## License
+MIT

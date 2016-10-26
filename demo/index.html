@@ -12,9 +12,10 @@
 				<h1>Stickytable</h1>
 				<p class="header-description">Stickytable is a javascript plugin that makes your table headers sticky, allowing users to scroll both horizontally and vertically through big sets of table data.</p>
 				
-
-
-		<div class="wrapper">
+			</div>
+		</div>
+		<div class="table-wrapper">
+			<div class="table-wrapper__inner">
 			<table cellpadding="10" cellspacing="40" >
 				<tr>
 					<td>Heading cell 10  0</td>
@@ -112,8 +113,10 @@
 					<td>Heading 1</td>
 				</tr>								
 			</table>
+			</div>
 		</div>
-
+		<div class="header">
+			<div class="header-inner">
 				<h2>Features</h2>
 				<ul>
 					<li>Have any number of rows and columns in your table</li>
@@ -123,6 +126,10 @@
 					<li>Completely responsive and plays nice with touch devices</li>
 				</ul>
 
+
+			</div>
+		</div>
+		<div class="footer">
 				<div class="header-links">
 					<a download href="https://raw.githubusercontent.com/amized/Stickytable/master/dist/Stickytable.js">
 						<i class="fa fa-download"></i>
@@ -136,11 +143,8 @@
 						<i class="fa fa-book"></i>
 						Docs
 					</a>
-				</div>
-			</div>
+				</div>		
 		</div>
-		
-
 		<script src="https://code.jquery.com/jquery-1.10.2.js"></script>
 
 		<script>
@@ -152,7 +156,7 @@
 				var el = document.querySelector("table");
 				var stickytable = new Stickytable(el, {
 					width: "100%",
-					height: "300px"
+					height: "400px"
 				});
 
 			//}, 2000);

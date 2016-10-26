@@ -10,6 +10,7 @@ var rename = require('gulp-rename');
 var fs = require('fs');
 var banner = require('gulp-banner');
 var pkg = require('./package.json');
+const gulpbabel = require('gulp-babel');
 
 var comment = '/*\n' +
     ' * <%= pkg.name %> <%= pkg.version %>\n' +
@@ -35,14 +36,26 @@ function addBanner( str ) {
   return replace( /^/, str );
 }
 
+function transpile() {
+  gulp.src('src/*.js')
+    .pipe(gulpbabel({
+        presets: ['es2015']
+    }))
+    .pipe(gulp.dest('lib'))
+}
 
 function compile(watch) {
   var bundler = watchify(browserify('./src/Stickytable.js', { 
-    debug: true, 
+    debug: false, 
     standalone: "Stickytable"
   }).transform(babel, {presets: ["es2015"]}));
 
   function rebundle() {
+    gulp.src('src/*.js')
+      .pipe(gulpbabel({
+          presets: ['es2015']
+      }))
+      .pipe(gulp.dest('lib')); 
     bundler.bundle()
       .on('error', function(err) { console.error(err); this.emit('end'); })
       .pipe(source('Stickytable.js'))
@@ -75,7 +88,7 @@ function compile(watch) {
 function watch() {
   return compile(true);
 };
-
+gulp.task('transpile', function() { return transpile(); });
 gulp.task('build', function() { return compile(); });
 gulp.task('watch', function() { return watch(); });
 
