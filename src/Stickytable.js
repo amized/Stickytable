@@ -3,6 +3,12 @@ import getScrollbarWidth from "./ScrollbarWidth";
 class Stickytable {
 
   constructor(el, options) {
+
+    if (!el) {
+      throw("Stickytable: no element passed.");
+      return;
+    }
+
     const defaults = {
       rowSelector: "tr",
       width: "100%",

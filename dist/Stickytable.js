@@ -59,6 +59,11 @@ var Stickytable = function () {
 
     _classCallCheck(this, Stickytable);
 
+    if (!el) {
+      throw "Stickytable: no element passed.";
+      return;
+    }
+
     var defaults = {
       rowSelector: "tr",
       width: "100%",
