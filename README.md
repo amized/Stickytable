@@ -2,6 +2,8 @@
 
 Stickytable is a javascript plugin that makes your table headers sticky, allowing users to scroll both horizontally and vertically through big sets of table data.
 
+[See a Demo](http://amielzwier.com/stickytable)
+
 Some cool things about this plugin:
 
 * You can have any number of rows and columns in your table
@@ -15,11 +17,12 @@ Some cool things about this plugin:
 
 ### Download
 
-Github [Stickytable.js](https://raw.githubusercontent.com/amized/Stickytable/master/dist/Stickytable.js)  
+* [Minified javascript](https://github.com/amized/Stickytable/archive/1.0.1.zip)
+* [Source code (zip)](https://github.com/amized/Stickytable/archive/1.0.1.zip)  
 
 ### Package managers
 
-**NPM:** `npm install stickytable`
+**NPM** | `npm install stickytable`
 
 ## Usage
 

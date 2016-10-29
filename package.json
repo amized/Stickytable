@@ -2,6 +2,7 @@
   "name": "stickytable",
   "version": "1.0.1",
   "description": "Make table row headers and column headers sticky",
+  "homepage": "http://amielzwier.com/stickytable"
   "main": "lib/Stickytable.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
