@@ -4,10 +4,10 @@ Stickytable is a javascript plugin that makes your table headers sticky, allowin
 
 [See a Demo](http://amielzwier.com/stickytable)
 
-Some cool things about this plugin:
+Features:
 
 * You can have any number of rows and columns in your table
-* Use your own CSS to style the table exactly how you like
+* Use your own CSS to style the table
 * It works on tables made of other elements, like `<div>`s
 * It makes both the row and column headers sticky
 * Completely responsive and plays nice with touch devices
@@ -17,7 +17,7 @@ Some cool things about this plugin:
 
 ### Download
 
-* [Minified javascript](https://github.com/amized/Stickytable/archive/1.0.1.zip)
+* [Minified javascript](https://raw.githubusercontent.com/amized/Stickytable/master/dist/Stickytable.min.js)
 * [Source code (zip)](https://github.com/amized/Stickytable/archive/1.0.1.zip)  
 
 ### Package managers
@@ -28,26 +28,29 @@ Some cool things about this plugin:
 
 Make a table
 
-	<table>
-		...	
-	</table>
-
+~~~~
+<table>
+	...	
+</table>
+~~~~
 	
 Style it
 
-	...
+~~~~
+...
 	
-	table {
-		cellpadding: 0;
-		callspacing: 0;
-	}
+table {
+	cellpadding: 0;
+	callspacing: 0;
+}
 	
-	td {
-		padding: 15px;
-		border: 1px solid #DDD;
-	}
+td {
+	padding: 15px;
+	border: 1px solid #DDD;
+}
 
-	...
+...
+~~~~
 
 Import the module with link
 	
@@ -59,11 +62,12 @@ or commonjs
 	
 Instantiate a Sticky table object by passing the table element and options
 
-	var el = document.querySelector("table");
-	var stickytable = new Stickytable(el, {
-		// options
-	});
-
+~~~~
+var el = document.querySelector("table");
+var stickytable = new Stickytable(el, {
+	// options
+});
+~~~~
 
 ## Options
 
@@ -74,8 +78,9 @@ height | string | 'auto' | Sets the the css height property of the scrollable co
 rowSelector | string | 'tr' | A selector to tell Stickytable which elements are the rows in your table. Change this value if your table is made of elements other than table/tr/td, like divs.
 
 ## Methods
-
-	Stickytable(element, options)
+~~~~
+Stickytable(element, options)
+~~~~
 
 Instantiates Sticky table.
 
@@ -89,9 +94,11 @@ Instantiates Sticky table.
 ###Returns:
 New `Stickytable` instance
 
---
 
-	stickytable.destroy()
+--
+~~~~
+stickytable.destroy()
+~~~~
 
 Destroys the sticky table and restores the original table into the DOM.
 
@@ -101,8 +108,9 @@ None
 `Undefined`
 
 --
-
-	stickytable.refresh()
+~~~~
+stickytable.refresh()
+~~~~
 
 Recalculates the sticky element dimensions and redraws the sticky table.
 ###Arguments:

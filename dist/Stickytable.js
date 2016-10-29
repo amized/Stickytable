@@ -1,7 +1,7 @@
 /*
  * stickytable 1.0.1
  * Make table row headers and column headers sticky
- * 
+ * http://amielzwier.com/stickytable
  *
  * Copyright 2016, Amiel Zwier <hi@amielzwier.com> (http://amielzwier.com)
  * Released under the MIT license.
@@ -149,6 +149,8 @@ var Stickytable = function () {
         el.style.margin = 0;
         el.style.width = tableWidth;
         el.style.height = tableHeight;
+        el.style.transform = "translate3d(0,0,0)";
+        el.style['-webkit-transform'] = "translate3d(0,0,0)";
       });
 
       // Wrapper
