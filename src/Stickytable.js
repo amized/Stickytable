@@ -1,4 +1,5 @@
 import getScrollbarWidth from "./ScrollbarWidth";
+import { debounce } from "lodash";
 
 class Stickytable {
 
@@ -16,9 +17,6 @@ class Stickytable {
     }
 
     this.options = Object.assign({}, defaults, options);
-
-    this._updateScroll = this._updateScroll.bind(this);
-    this._onWindowResize = this._onWindowResize.bind(this);
 
     this.rowSelector = this.options.rowSelector;
     this.scrollBarWidth = getScrollbarWidth();
@@ -48,7 +46,11 @@ class Stickytable {
     this.elCornerWrapper.appendChild(this.elCorner);
     
     // Events
+    this._updateScroll = this._updateScroll.bind(this);
     this.elMainWrapper.addEventListener("scroll", this._updateScroll);
+    this._onWindowResize = debounce(()=>{
+      this.refresh();
+    }, 100);
     window.addEventListener("resize", this._onWindowResize);
 
     // Update the styles and modify the DOM
@@ -62,8 +64,11 @@ class Stickytable {
     });
   }
 
-  _onWindowResize () {
-    this.refresh();
+  _updateScroll () {
+    const left = this.elMainWrapper.scrollLeft;
+    const top = this.elMainWrapper.scrollTop;
+    this.elTop.style.transform = "translateX(" + (-left) + "px)";
+    this.elSide.style.transform = "translateY(" + (-top) + "px)";
   }
 
   _updateStyles (refEl) {
@@ -141,13 +146,8 @@ class Stickytable {
     this.elMainWrapper.style.bottom = "0";
     this.elMainWrapper.style.overflow = "scroll";
     this.elMainWrapper.style['-webkit-overflow-scrolling'] = 'touch';
-  }
 
-  _updateScroll () {
-    const left = this.elMainWrapper.scrollLeft;
-    const top = this.elMainWrapper.scrollTop;
-    this.elTop.style.transform = "translateX(" + (-left) + "px)";
-    this.elSide.style.transform = "translateY(" + (-top) + "px)";
+    this._updateScroll();
   }
 
   _getCornerDimensions(el) {
@@ -188,6 +188,7 @@ class Stickytable {
   }
 
   destroy() {
+    window.removeEventListener("resize", this._onWindowResize);
     this.elMainWrapper.removeEventListener("scroll", this._updateScroll);
     this.parent.replaceChild(this.oldEl, this.elWrapper);
     this.parent = null;
