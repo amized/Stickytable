@@ -1,5 +1,5 @@
 /*
- * stickytable 1.0.0
+ * stickytable 1.0.1
  * Make table row headers and column headers sticky
  * 
  *
@@ -146,6 +146,7 @@ var Stickytable = function () {
         el.style.position = "absolute";
         el.style.top = 0;
         el.style.left = 0;
+        el.style.margin = 0;
         el.style.width = tableWidth;
         el.style.height = tableHeight;
       });

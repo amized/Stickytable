@@ -98,6 +98,7 @@ class Stickytable {
       el.style.position = "absolute";
       el.style.top = 0;
       el.style.left = 0;
+      el.style.margin = 0;
       el.style.width = tableWidth;
       el.style.height = tableHeight;
     });
