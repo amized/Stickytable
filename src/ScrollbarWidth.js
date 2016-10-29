@@ -1,4 +1,4 @@
-function getScrollbarWidth() {
+function scrollbarWidth() {
     var outer = document.createElement("div");
     outer.style.visibility = "hidden";
     outer.style.width = "100px";
@@ -23,4 +23,4 @@ function getScrollbarWidth() {
     return widthNoScroll - widthWithScroll;
 }
 
-export default getScrollbarWidth;
+export default scrollbarWidth;

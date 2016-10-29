@@ -1,5 +1,5 @@
-import getScrollbarWidth from "./ScrollbarWidth";
-import { debounce } from "lodash";
+import scrollbarWidth from "./scrollbarWidth";
+import debounce from "./debounce";
 
 class Stickytable {
 
@@ -19,7 +19,7 @@ class Stickytable {
     this.options = Object.assign({}, defaults, options);
 
     this.rowSelector = this.options.rowSelector;
-    this.scrollBarWidth = getScrollbarWidth();
+    this.scrollBarWidth = scrollbarWidth();
 
     // Elements
     this.oldEl = el;
