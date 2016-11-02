@@ -6,11 +6,11 @@ Stickytable is a javascript plugin that makes your table headers sticky, allowin
 
 Features:
 
-* You can have any number of rows and columns in your table
-* Use your own CSS to style the table
-* It works on tables made of other elements, like `<div>`s
-* It makes both the row and column headers sticky
 * Completely responsive and plays nice with touch devices
+* Make both the row and column headers sticky
+* Have any number of rows and columns in your table
+* Use your own CSS to style your tables</li>
+* It works on tables made of other elements, like `<div>`s
 
 
 ## Install
@@ -34,7 +34,7 @@ Make a table
 </table>
 ~~~~
 	
-Style it
+Style it how you like. Don't be scared of using widths/heights/paddings.
 
 ~~~~
 ...
@@ -42,6 +42,10 @@ Style it
 table {
 	cellpadding: 0;
 	callspacing: 0;
+}
+
+th {
+	min-width: 200px;
 }
 	
 td {
@@ -52,15 +56,15 @@ td {
 ...
 ~~~~
 
-Import the module with link
+Import the module with `<script>`
 	
-	<script src="Stickytable.js"/><script>
+	<script src="Stickytable.min.js"/><script>
 	
 or commonjs
 
 	var Stickytable = require("stickytable");	
 	
-Instantiate a Sticky table object by passing the table element and options
+Instantiate a Stickytable object by passing the table element and options
 
 ~~~~
 var el = document.querySelector("table");
@@ -68,6 +72,7 @@ var stickytable = new Stickytable(el, {
 	// options
 });
 ~~~~
+
 
 ## Options
 
