@@ -1,5 +1,5 @@
 /*
- * stickytable 1.0.1
+ * stickytable 1.0.2
  * Make table row headers and column headers sticky
  * http://amielzwier.com/stickytable
  *
