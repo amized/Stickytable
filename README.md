@@ -1,6 +1,6 @@
 # Stickytable
 
-Stickytable is a javascript plugin that makes your table headers sticky, allowing users to scroll both horizontally and vertically through big sets of table data.
+Stickytable is a javascript plugin that makes your table headers sticky, allowing users to scroll through big sets of table data on any size screen.
 
 [See a Demo](http://amielzwier.com/stickytable)
 
@@ -34,7 +34,7 @@ Make a table
 </table>
 ~~~~
 	
-Style it how you like. Don't be scared of using widths/heights/paddings.
+Style it how you like. Don't be scared of using widths/heights/paddings etc...
 
 ~~~~
 ...
