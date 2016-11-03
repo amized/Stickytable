@@ -19,7 +19,7 @@ Features:
 ### Download
 
 * [Minified javascript](https://raw.githubusercontent.com/amized/Stickytable/master/dist/Stickytable.min.js)
-* [Source code (zip)](https://github.com/amized/Stickytable/archive/1.0.1.zip)  
+* [Source code (zip)](https://github.com/amized/Stickytable/archive/v1.0.3.zip)  
 
 ### Package managers
 
