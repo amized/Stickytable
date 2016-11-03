@@ -12,6 +12,8 @@
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
+require("./polyfill");
+
 var _scrollbarWidth = require("./scrollbarWidth");
 
 var _scrollbarWidth2 = _interopRequireDefault(_scrollbarWidth);
@@ -228,7 +230,7 @@ var Stickytable = function () {
 
 module.exports = Stickytable;
 
-},{"./debounce":2,"./scrollbarWidth":3}],2:[function(require,module,exports){
+},{"./debounce":2,"./polyfill":3,"./scrollbarWidth":4}],2:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {
@@ -256,6 +258,35 @@ function debounce(func, wait, immediate) {
 };
 
 },{}],3:[function(require,module,exports){
+'use strict';
+
+if (typeof Object.assign != 'function') {
+  (function () {
+    Object.assign = function (target) {
+      'use strict';
+      // We must check against these specific cases.
+
+      if (target === undefined || target === null) {
+        throw new TypeError('Cannot convert undefined or null to object');
+      }
+
+      var output = Object(target);
+      for (var index = 1; index < arguments.length; index++) {
+        var source = arguments[index];
+        if (source !== undefined && source !== null) {
+          for (var nextKey in source) {
+            if (source.hasOwnProperty(nextKey)) {
+              output[nextKey] = source[nextKey];
+            }
+          }
+        }
+      }
+      return output;
+    };
+  })();
+}
+
+},{}],4:[function(require,module,exports){
 "use strict";
 
 Object.defineProperty(exports, "__esModule", {

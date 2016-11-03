@@ -6,6 +6,7 @@ Stickytable is a javascript plugin that makes your table headers sticky, allowin
 
 Features:
 
+* Written in pure javascript, no jQuery or framework needed
 * Completely responsive and plays nice with touch devices
 * Make both the row and column headers sticky
 * Have any number of rows and columns in your table

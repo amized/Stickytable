@@ -1,3 +1,4 @@
+import "./polyfill";
 import scrollbarWidth from "./scrollbarWidth";
 import debounce from "./debounce";
 
