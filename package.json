@@ -1,6 +1,6 @@
 {
   "name": "stickytable",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Make table row headers and column headers sticky",
   "homepage": "http://amielzwier.com/stickytable",
   "main": "lib/Stickytable.js",
